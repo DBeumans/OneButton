@@ -19,8 +19,11 @@ package actors
 		private var gravity:Number = 10;
 		private var jumpPower:Number = 0;
 		private var isJumping:Boolean = false; 
+		
+		private var doubleJump:Boolean = false;
+		private var upKeyPressed:Boolean = false
 
-private var ParticleArray:Array = [];
+		private var ParticleArray:Array = [];
 		
 		private var particles:Particle;
 		
@@ -42,6 +45,7 @@ private var ParticleArray:Array = [];
 			character.y = ground;
 			character.x = 50;
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, Jump);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, JumpReleased);
 			
 			addEventListener(Event.ENTER_FRAME, update);
 			setInterval(omlmeidingNaarMakeParticalFunction, 10);
@@ -72,10 +76,14 @@ private var ParticleArray:Array = [];
 				
 				character.y -= jumpPower;
 				jumpPower -= 2.5;
-								
 				
 			}
-						
+					
+			if (upKeyPressed && doubleJump && character.y < ground)
+			{
+				character.y -= jumpPower;
+				jumpPower -= 2.5;
+			}
 			
 			if(character.y + gravity < ground)
 				character.y += gravity;
@@ -83,10 +91,6 @@ private var ParticleArray:Array = [];
 			{
 				character.y = ground;
 				isJumping = false;
-
-
-
-				
 			}
 			
 			
@@ -101,13 +105,22 @@ private var ParticleArray:Array = [];
 				if(!isJumping)
 				{
 					jumpPower = 35;
+					upKeyPressed = true;
+
 					isJumping = true;	
-					
 				}
 					
 		
 			}
-		}	
+		}
+		
+		private function JumpReleased(e:KeyboardEvent):void
+		{
+			if (e.keyCode == Keyboard.SPACE)
+			{
+				upKeyPressed = false;
+			}
+		}
 		
 		
 		public function makeParticle(num:int, xPos:int, yPos:int, xSpeed:int, ySpeed:int):void
