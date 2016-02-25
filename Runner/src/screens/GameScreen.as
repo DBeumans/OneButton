@@ -23,7 +23,6 @@ package screens
 		
 		public static const GAME_OVER_SCREEN:String = "Game Over Screen";
 		
-		private var player:MovieClip = new Player();
 		private var _player:Player;
 		
 		private var _main:Main;
@@ -41,7 +40,7 @@ package screens
 		private var object4:Sprite = new Obstalce4();
 		
 		
-		//private var ParticleArray:Array = [];
+		
 		
 		public var afstand:int = 0;
 		
@@ -51,10 +50,10 @@ package screens
 		public function GameScreen() 
 		{
 			
-			
+			_player = new Player();
 			addChild(background);
 			addChild(background2);
-			addChild(player);
+			addChild(_player);
 			
 			fpsCounter();
 			
@@ -83,7 +82,7 @@ package screens
 			
 			addEventListener(Event.ENTER_FRAME, update); 
 			
-		//	stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			
 			     
 		}	
 		
@@ -128,12 +127,9 @@ package screens
 		
 		private function update(e:Event):void
 		{
-			/*
-			for ( var i:int = 0; i < ParticleArray.length; i++)
-			{
-				ParticleArray[i].update();
-			}
-			*/
+			
+			
+			
 			
 			scoreHandler();
 			
@@ -209,7 +205,9 @@ package screens
 				object4.x = Math.random() * 3400 + 3400;
 			}
 			
-			if (object1.hitTestObject(player) || object2.hitTestObject(player) || object3.hitTestObject(player) || object4.hitTestObject(player))
+			
+			
+			if (object1.hitTestObject(_player.character) || object2.hitTestObject(_player.character) || object3.hitTestObject(_player.character) || object4.hitTestObject(_player.character))
 			{
 				dispatchEvent( new Event(GAME_OVER_SCREEN));
 				
@@ -231,34 +229,7 @@ package screens
 			distanceText.text = "Distance: " + afstand + "M";
 			
 			
-		}
-		
-		/*
-		public function makeParticle(num:int, xPos:int, yPos:int, xSpeed:int, ySpeed:int):void
-		{
-			for (var i:int = 0; i < num;i++ )
-			{
-				var part:Particle = new Particle(Math.round(Math.random()) * 10 + 5);
-				part.x = xPos;
-				part.y = yPos;
-				part.xSpeed = xSpeed + Math.random() * 10 - 5;
-				part.ySpeed = ySpeed + Math.random() * 10 - 5;
-				part.rSpeed = Math.random() * 10 + 20;
-				addChild(part);
-				ParticleArray.push(part);
-				
-			}
-			
-		}
-		
-		private function onKeyUp(e:KeyboardEvent):void
-		{
-			if (e.keyCode == Keyboard.SPACE)
-			{
-				makeParticle(20,player.x, player.y, 10, 10);
-			}
-		}
-		*/
+		}	
 		
 		
 		

@@ -4,6 +4,7 @@ package actors
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
+	import flash.utils.setInterval;
 	
 	import screens.GameScreen;
 
@@ -19,6 +20,8 @@ package actors
 		private var jumpPower:Number = 0;
 		private var isJumping:Boolean = false; 
 
+private var ParticleArray:Array = [];
+		
 		private var particles:Particle;
 		
 		public var character:MovieClip = new Character();
@@ -41,11 +44,25 @@ package actors
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, Jump);
 			
 			addEventListener(Event.ENTER_FRAME, update);
+			setInterval(omlmeidingNaarMakeParticalFunction, 10);
+		}
+		
+		private function omlmeidingNaarMakeParticalFunction():void
+		{
+			makeParticle(7, character.x +14, character.y + 100, 10, 10);
 		}
 	
 		private function update(e:Event):void
 		{
-			
+			for ( var i:int = 0; i < ParticleArray.length; i++)
+			{
+				ParticleArray[i].update();
+				if (ParticleArray[i].timer == 30)
+				{
+					removeChild(ParticleArray[i]);
+					ParticleArray.splice(i, 1);
+				}
+			}
 			
 			
 			var oldPosY:int = character.y;
@@ -55,9 +72,10 @@ package actors
 				
 				character.y -= jumpPower;
 				jumpPower -= 2.5;
+								
 				
 			}
-
+						
 			
 			if(character.y + gravity < ground)
 				character.y += gravity;
@@ -65,6 +83,9 @@ package actors
 			{
 				character.y = ground;
 				isJumping = false;
+
+
+
 				
 			}
 			
@@ -80,20 +101,31 @@ package actors
 				if(!isJumping)
 				{
 					jumpPower = 35;
-					
-					isJumping = true;
-					
-					
+					isJumping = true;	
 					
 				}
+					
+		
 			}
-
+		}	
+		
+		
+		public function makeParticle(num:int, xPos:int, yPos:int, xSpeed:int, ySpeed:int):void
+		{
+			for (var i:int = 0; i < num;i++ )
+			{
+				var part:Particle = new Particle(Math.round(Math.random()) * 10 + 5);
+				part.x = xPos;
+				part.y = yPos;
+				part.xSpeed = xSpeed + Math.random() * 10 - 5;
+				part.ySpeed = ySpeed + Math.random() * 10 - 5;
+				part.rSpeed = Math.random() * 10 + 20;
+				addChild(part);
+				ParticleArray.push(part);
+				
+			}
+			
 		}
-		
-		
-		
-		
-		
 
 		
 	}

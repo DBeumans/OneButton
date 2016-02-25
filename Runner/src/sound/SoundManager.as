@@ -12,6 +12,7 @@ package sound
 	import screens.GameScreen;
 	import screens.GameOverScreen;
 	import screens.IntroScreen;
+	import Main;
 	
 	/**
 	 * ...

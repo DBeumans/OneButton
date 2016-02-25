@@ -71,12 +71,7 @@ package
 			introscreen = new IntroScreen();
 			addChild(introscreen);
 			
-			
 			introscreen.addEventListener(IntroScreen.HOW_TO, HowtoScreen);
-			
-			
-			
-			
 		}
 		
 		private function HowtoScreen(e:Event):void
@@ -89,9 +84,7 @@ package
 			
 			mainmenu = new MainMenu();
 			mainmenu.addEventListener(MainMenu.GAME_START, GameScreens);
-			
-			
-			
+						
 			addChild(mainmenu);
 			
 			if (puntens > sharedData.data.highScore)
@@ -140,6 +133,7 @@ package
 			var punten:int = gamescreens.afstand;
 			
 			puntens = punten;
+
 		}
 		
 	}

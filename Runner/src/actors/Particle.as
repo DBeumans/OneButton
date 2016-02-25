@@ -12,12 +12,12 @@ package actors
 		public var ySpeed:int = 0;
 		public var rSpeed:int = 0;
 		public var timer:int = 0;
-		
+
 		
 		
 		public function Particle(size:int) 
 		{
-			this.graphics.beginFill(0xFFFF00, 1);
+			this.graphics.beginFill(0x808080, 1);
 			this.graphics.drawRect( x - size / 2 , y - size, size, size);
 			this.graphics.endFill();
 			
@@ -26,11 +26,12 @@ package actors
 		{
 			
 			
-			x += xSpeed;
-			y += ySpeed;
+			x -= xSpeed;
+			y -= ySpeed;
 			rotation += rSpeed;
 			timer++;
 			ySpeed -= .5
+			timer++;
 			if (xSpeed > 0)
 			{
 				xSpeed -= .5;

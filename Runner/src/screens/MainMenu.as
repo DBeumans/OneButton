@@ -94,11 +94,7 @@ package screens
 		{
 			distanceText.text = "Highscore: " +Main.puntenScreen + "M";
 			
-			if (Main.puntenScreen >= 1000)
-			{
-				
-				distanceText.text = "Highscore: " +Main.puntenScreen + "KM";
-			}
+
 		}
 	
 	}
