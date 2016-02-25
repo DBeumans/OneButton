@@ -21,6 +21,7 @@
   <build>
     <option accessible="False" />
     <option advancedTelemetry="False" />
+    <option advancedTelemetryPassword="Danilo" />
     <option allowSourcePathOverlap="False" />
     <option benchmark="False" />
     <option es="False" />
@@ -92,5 +93,8 @@
     <option testMovieCommand="" />
   </options>
   <!-- Plugin storage -->
-  <storage />
+  <storage>
+    <entry key="at_enabled"><![CDATA[0]]></entry>
+    <entry key="at_password"><![CDATA[Danilo]]></entry>
+  </storage>
 </project>

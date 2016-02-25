@@ -1,6 +1,7 @@
 package screens 
 {
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.text.TextFormat;
 	/**
 	 * ...
@@ -8,18 +9,20 @@ package screens
 	 */
 	public class Fonts extends MovieClip
 	{
-		[Embed(source = "../../lib/font/Assassin.ttf",
-			fontName = "Assasin",
+
+			
+		[Embed(source = "../../lib/font/shablagoo.ttf",
+			fontName = "Shablagoo",
 			mimeType = "application/x-font", 
 			fontWeight="normal", 
 			fontStyle="normal", 		
 			advancedAntiAliasing="true", 
 			embedAsCFF = "false")]			
-			private var AssasinFont:Class;
+			private var ShablagooFont:Class;
 		
 			protected var textFormat:TextFormat;
 			protected var subFormat:TextFormat;
-			protected var AssasinFormat:TextFormat;
+			protected var ShablagooFormat:TextFormat;
 		
 		public function Fonts() 
 		{
@@ -33,11 +36,12 @@ package screens
 			subFormat.font = "Assasin";
 			subFormat.size = 20;
 			subFormat.color = 0xff0000;
+
 			
-			AssasinFormat = new TextFormat();
-			AssasinFormat.font = "Assasin";
-			AssasinFormat.size = 40;
-			AssasinFormat.color = 0xFFFF00;
+			ShablagooFormat = new TextFormat();
+			ShablagooFormat.font = "Shablagoo";
+			ShablagooFormat.size = 40;
+			ShablagooFormat.color = 0xFFFF00;
 		
 		}
 		

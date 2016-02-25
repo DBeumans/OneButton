@@ -3,7 +3,12 @@ package screens
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import flash.net.drm.DRMRemoveFromDeviceGroupContext;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFormat;
+
 	import flash.ui.Keyboard;
 	
 	
@@ -11,15 +16,24 @@ package screens
 	/**
 	 * ...
 	 * @author Danilo
+	 * ...
 	 */
-	public class MainMenu extends MovieClip
+	public class MainMenu extends Fonts
 	{
 		
 		public static const GAME_START:String = "Game Screen";
 		
+		private var _main:Main;
 		
 		private var background:MovieClip = new Background_01();
 		
+		private var distanceText:TextField;
+		private var distanceTextFont:TextFormat = new TextFormat( "Shablagoo", 24, 0xFFFF00);
+		
+		private var InstructionText:TextField;
+		
+		private var score:int = 0;
+		private var gamescreen:GameScreen;
 		
 		public function MainMenu() 
 		{
@@ -30,11 +44,36 @@ package screens
 		private function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
-			
+			text();
+
 			addChild(background);
+			addChild(distanceText);
+			addChild(InstructionText);
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			this.addEventListener(Event.ENTER_FRAME, Update);
+		}
+		
+		private function text():void
+		{
+			
+			//Distance
+			distanceText = new TextField();
+			distanceText.embedFonts = true;
+			distanceText.autoSize = TextFieldAutoSize.CENTER;
+			distanceText.defaultTextFormat = ShablagooFormat;
+			distanceText.x = 500;
+			distanceText.y = 100;
+			
+			//Instruction
+			InstructionText = new TextField();
+			InstructionText.embedFonts = true;
+			InstructionText.autoSize = TextFieldAutoSize.CENTER;
+			InstructionText.defaultTextFormat = ShablagooFormat;
+			InstructionText.x = 200;
+			InstructionText.y = 50;
+			InstructionText.text = "Press Space To Jump Over Obstcles.";
+			
 		}
 		
 		private function onKeyUp(k:KeyboardEvent):void
@@ -43,14 +82,24 @@ package screens
 			{
 				stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 				trace("ADDED");
-				dispatchEvent( new Event(GAME_START));
 				//removeChild(background);
+				dispatchEvent( new Event(GAME_START));
+				
 				
 			}
 			
 		}
 		
-		
+		private function Update(e:Event):void
+		{
+			distanceText.text = "Highscore: " +Main.puntenScreen + "M";
+			
+			if (Main.puntenScreen >= 1000)
+			{
+				
+				distanceText.text = "Highscore: " +Main.puntenScreen + "KM";
+			}
+		}
 	
 	}
 

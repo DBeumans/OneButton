@@ -19,7 +19,7 @@ package screens
 		
 		private var text:TextField;
 		private var text2:TextField;
-		private var textFont:TextFormat = new TextFormat( "Assasin", 24, 0xFFFF00);
+		private var textFont:TextFormat = new TextFormat( "Shablagoo", 24, 0xFFFF00);
 		
 		private var textArray:Array = [];
 		
@@ -31,7 +31,7 @@ package screens
 			text = new TextField();
 			text.embedFonts = true;
 			text.autoSize = TextFieldAutoSize.CENTER;
-			text.defaultTextFormat = AssasinFormat;
+			text.defaultTextFormat = ShablagooFormat;
 			text.x = 500;
 			text.y = 300;
 			text.alpha = 1;
@@ -41,7 +41,7 @@ package screens
 			text2 = new TextField();
 			text2.embedFonts = true;
 			text2.autoSize = TextFieldAutoSize.CENTER;
-			text2.defaultTextFormat = AssasinFormat;
+			text2.defaultTextFormat = ShablagooFormat;
 			text2.x = 500;
 			text2.y = 200;
 			text2.alpha = 1;
