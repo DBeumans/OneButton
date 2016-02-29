@@ -28,6 +28,9 @@ package
 				
 		public static var puntens:int = 0;
 		public static var puntenScreen:int = 0;
+
+		
+		public static var puntensScoreArray:Array = [];
 		
 		public static var sharedData:SharedObject = SharedObject.getLocal("scoreSave");
 		
@@ -45,12 +48,16 @@ package
 			// entry point
 			soundManager = new SoundManager(this);
 			
+			
+			
 			if (sharedData.data.highScore == null)
 			{
 				sharedData.data.highScore = 0;
 			}
 			
-			else if (puntens > sharedData.data.highScore)
+			
+			
+			 if (puntens > sharedData.data.highScore)
 			{
 				sharedData.data.highScore = puntens;
 			}
@@ -87,14 +94,13 @@ package
 						
 			addChild(mainmenu);
 			
+			
 			if (puntens > sharedData.data.highScore)
 			{
 				sharedData.data.highScore = puntens;
+				
 				sharedData.flush();
 				puntenScreen = sharedData.data.highScore;
-			}
-			else
-			{
 				
 			}
 			
@@ -133,6 +139,8 @@ package
 			var punten:int = gamescreens.afstand;
 			
 			puntens = punten;
+			
+		
 
 		}
 		

@@ -215,8 +215,6 @@ package screens
 			
 			
 			
-			
-			
 		}
 		
 		private function scoreHandler():void

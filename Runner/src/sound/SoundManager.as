@@ -22,6 +22,7 @@ package sound
 	{
 		
 		private var sounds:Sound = new Sound();
+		private var trans:SoundTransform = new SoundTransform(1,0); 
 		private var _channel:SoundChannel;
 		
 		
@@ -32,7 +33,7 @@ package sound
 
 			
 			
-			_channel = sounds.play();
+			_channel = sounds.play(0,1,trans);
 			
 			/*
 			loadSound("http://13103.hosts.ma-cloud.nl/bewijzenmap/periode3/oneButtonGameMusic/2.mp3");			

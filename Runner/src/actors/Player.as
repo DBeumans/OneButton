@@ -19,10 +19,11 @@ package actors
 		private var gravity:Number = 10;
 		private var jumpPower:Number = 0;
 		private var isJumping:Boolean = false; 
+		private var jumpKracht:Number = 0;
+		private var jumpCounter:int = 0;
 		
-		private var doubleJump:Boolean = false;
-		private var upKeyPressed:Boolean = false
-
+		private var jumpAble:Boolean = true;
+		
 		private var ParticleArray:Array = [];
 		
 		private var particles:Particle;
@@ -48,10 +49,11 @@ package actors
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, JumpReleased);
 			
 			addEventListener(Event.ENTER_FRAME, update);
-			setInterval(omlmeidingNaarMakeParticalFunction, 10);
+			setInterval(MakeParticalFunction, 10);
+			
 		}
 		
-		private function omlmeidingNaarMakeParticalFunction():void
+		private function MakeParticalFunction():void
 		{
 			makeParticle(7, character.x +14, character.y + 100, 10, 10);
 		}
@@ -76,21 +78,35 @@ package actors
 				
 				character.y -= jumpPower;
 				jumpPower -= 2.5;
+					
+			
 				
 			}
-					
-			if (upKeyPressed && doubleJump && character.y < ground)
+			
+			if (character.y + gravity <= 300)
 			{
-				character.y -= jumpPower;
-				jumpPower -= 2.5;
+				
+				jumpAble = false;
+				character.y += gravity;
+			
 			}
 			
-			if(character.y + gravity < ground)
+					
+			if (character.y + gravity < ground)
+			{
+							
 				character.y += gravity;
+				
+			}
+			
+			
+
 			else
 			{
 				character.y = ground;
 				isJumping = false;
+				jumpAble = true;
+				jumpCounter = 0;
 			}
 			
 			
@@ -99,27 +115,44 @@ package actors
 		
 		private function Jump(e:KeyboardEvent):void
 		{
-			if (e.keyCode == Keyboard.SPACE)
+			if (jumpAble)
 			{
-				
-				if(!isJumping)
+				if (e.keyCode == Keyboard.SPACE)
 				{
-					jumpPower = 35;
-					upKeyPressed = true;
-
-					isJumping = true;	
-				}
 					
+					jumpKracht = 0;
+					jumpKracht ++;
+					jumpPower = jumpKracht + 35;
 		
+				}
 			}
 		}
 		
 		private function JumpReleased(e:KeyboardEvent):void
 		{
-			if (e.keyCode == Keyboard.SPACE)
+			if (jumpAble)
 			{
-				upKeyPressed = false;
+				if (e.keyCode == Keyboard.SPACE)
+				{
+					if(!isJumping)
+					{
+						if (jumpCounter == 2)
+						{
+						
+						}
+						else
+						{
+						jumpCounter ++;
+						trace(jumpKracht);
+						isJumping = true;	
+						
+						}
+					
+					}
+					
+				}
 			}
+			
 		}
 		
 		

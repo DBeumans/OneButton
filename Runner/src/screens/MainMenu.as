@@ -28,6 +28,7 @@ package screens
 		private var background:MovieClip = new Background_01();
 		
 		private var distanceText:TextField;
+		private var distanceText2:TextField;
 		private var distanceTextFont:TextFormat = new TextFormat( "Shablagoo", 24, 0xFFFF00);
 		
 		private var InstructionText:TextField;
@@ -48,6 +49,7 @@ package screens
 
 			addChild(background);
 			addChild(distanceText);
+			addChild(distanceText2);
 			addChild(InstructionText);
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
@@ -63,7 +65,15 @@ package screens
 			distanceText.autoSize = TextFieldAutoSize.CENTER;
 			distanceText.defaultTextFormat = ShablagooFormat;
 			distanceText.x = 500;
-			distanceText.y = 100;
+			distanceText.y = 100;	
+			
+			//Distance total
+			distanceText2 = new TextField();
+			distanceText2.embedFonts = true;
+			distanceText2.autoSize = TextFieldAutoSize.CENTER;
+			distanceText2.defaultTextFormat = ShablagooFormat;
+			distanceText2.x = 500;
+			distanceText2.y = 300;
 			
 			//Instruction
 			InstructionText = new TextField();
@@ -93,6 +103,7 @@ package screens
 		private function Update(e:Event):void
 		{
 			distanceText.text = "Highscore: " +Main.puntenScreen + "M";
+			
 			
 
 		}
