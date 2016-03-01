@@ -4,6 +4,7 @@ package screens
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.filters.GlowFilter;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.text.TextField;
@@ -33,6 +34,7 @@ package screens
 		private var distanceTextFont:TextFormat = new TextFormat( "Shablagoo", 24, 0xFFFF00);
 		
 		private var InstructionText:TextField;
+		private var startText:TextField;
 		
 		private var score:int = 0;
 		private var gamescreen:GameScreen;
@@ -60,6 +62,7 @@ package screens
 			addChild(distanceText);
 			addChild(distanceText2);
 			addChild(InstructionText);
+			addChild(startText);
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 			this.addEventListener(Event.ENTER_FRAME, Update);
@@ -68,30 +71,45 @@ package screens
 		private function text():void
 		{
 			
-			//Distance
+			var outline:GlowFilter = new GlowFilter(0x000000, 1.0, 2.0, 2.0, 10);
+			
+			//HighScore
 			distanceText = new TextField();
 			distanceText.embedFonts = true;
 			distanceText.autoSize = TextFieldAutoSize.CENTER;
 			distanceText.defaultTextFormat = ShablagooFormat;
-			distanceText.x = 500;
+			distanceText.filters = [outline];
+			distanceText.x = 150;
 			distanceText.y = 100;	
 			
-			//Distance total
+			//TotalScore
 			distanceText2 = new TextField();
 			distanceText2.embedFonts = true;
 			distanceText2.autoSize = TextFieldAutoSize.CENTER;
 			distanceText2.defaultTextFormat = ShablagooFormat;
-			distanceText2.x = 500;
-			distanceText2.y = 300;
+			distanceText2.filters = [outline];
+			distanceText2.x = 180;
+			distanceText2.y = 150;
 			
 			//Instruction
 			InstructionText = new TextField();
 			InstructionText.embedFonts = true;
 			InstructionText.autoSize = TextFieldAutoSize.CENTER;
 			InstructionText.defaultTextFormat = ShablagooFormat;
-			InstructionText.x = 200;
-			InstructionText.y = 50;
+			InstructionText.filters = [outline];
+			InstructionText.x = 300;
+			InstructionText.y = 25;
 			InstructionText.text = "Press Space To Jump Over Obstcles.";
+			
+			//Press Space To Start, fade in fade out.
+			startText = new TextField();
+			startText.embedFonts = true;
+			startText.autoSize = TextFieldAutoSize.CENTER;
+			startText.defaultTextFormat = ShablagooFormat;
+			startText.filters = [outline];
+			startText.x = stage.stageWidth/2;
+			startText.y = stage.stageHeight/4 * 3;
+			startText.text = "Press Space To Start";
 			
 		}
 		
@@ -108,13 +126,24 @@ package screens
 			}
 			
 		}
-		
+		private var color:Boolean = true;
 		private function Update(e:Event):void
 		{
 			distanceText.text = "Highscore: " +Main.puntenScreen + "M";
 			distanceText2.text = "TotalScore: " +Main.oldscore + "M";
 
-
+			//start fade in fade out
+			if (color)
+			{
+				startText.alpha -= .04;	
+				if (startText.alpha <= 0) color = false;
+				
+			}
+			else
+			{
+				startText.alpha += .04;	
+				if (startText.alpha >= 1) color = true;
+			}
 		}
 	
 	}

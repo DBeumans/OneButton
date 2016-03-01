@@ -16,6 +16,7 @@ package actors
 		public var particleColorArray:Array = ["0x808080", "0x00ffff", "0xff00ff", "0xD000000"];
 		public var rainbow:Array = ["0xFF0000", "0xEAFF00", "0x09FF00"];
 		public var blackAndWhite:Array = ["0xD000000", "0xFFFFFF"];
+		public var redAndOrange:Array = ["0xFFD900", "0xFF0000"];
 		
 		private var color:Number = randomColor();
 		
@@ -51,6 +52,10 @@ package actors
 		{
 			var returnValue = defaultParticle;
 			
+			if (Main.puntenScreen >= 0 )
+			{
+				returnValue = defaultParticle;
+			}
 			
 			if (Main.puntenScreen >= 1000)
 			{
@@ -62,8 +67,9 @@ package actors
 			}
 			if (Main.puntenScreen >= 3000)
 			{
-				returnValue = rainbow;
+				returnValue = redAndOrange;
 			}
+			
 			
 			return returnValue[int(Math.random() * returnValue.length)];
 		}

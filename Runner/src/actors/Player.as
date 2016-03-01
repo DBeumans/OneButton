@@ -3,6 +3,7 @@ package actors
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.net.drm.DRMRemoveFromDeviceGroupContext;
 	import flash.ui.Keyboard;
 	import flash.utils.setInterval;
 	
@@ -40,7 +41,15 @@ package actors
 		
 		private var particles:Particle;
 		
-		public var character:MovieClip = new Character();
+		public var character_default:MovieClip = new Character();
+		public var character_blue:MovieClip = new Character_blue();
+		public var character_green:MovieClip = new Character_green();
+		public var character_purple:MovieClip = new Character_purple();
+		public var character_white:MovieClip = new Character_white();
+		public var character_yellow:MovieClip = new Character_yellow();
+		
+		public var character:MovieClip = character_default;
+		
 		private var ground:int = 480;
 		
 		
@@ -52,18 +61,80 @@ package actors
 		
 		private function init(e:Event):void
 		{
+			
+			//character = character_default;
+			
 			jump.load(new URLRequest("../lib/assests/Sounds/jump.mp3"));
 			
 			
 			
-			addChild(character);
-			character.y = ground;
-			character.x = 50;
+			//addChild(character);
+			//character.y = ground;
+			//character.x = 50;
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, Jump);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, JumpReleased);
 			
+			checkSkin();
+			
 			addEventListener(Event.ENTER_FRAME, update);
 			setInterval(MakeParticalFunction, 10);
+			
+		}
+		
+		private function checkSkin():void
+		{
+			character.x = 50;
+			character.y = ground;
+			
+			if (Main.puntenScreen >= 0)
+			{
+				addChild(character);
+				character.x = 50;
+				character.y = ground;
+			}
+			if (Main.puntenScreen >= 1000)
+			{
+				removeChild(character);
+				character = character_blue;
+				addChild(character);
+				character.x = 50;
+				character.y = ground;
+				
+			}
+			
+			if (Main.puntenScreen >= 2000)
+			{
+				removeChild(character);
+				character = character_green;
+				addChild(character);
+				character.x = 50;
+				character.y = ground;
+				
+			}
+			
+			if (Main.puntenScreen >= 3000)
+			{
+				removeChild(character);
+				character = character_purple;
+				addChild(character);
+				character.x = 50;
+				character.y = ground;
+				
+			}
+			
+			if (Main.puntenScreen >= 4000)
+			{
+				removeChild(character);
+				character = character_white;
+				addChild(character);
+				character.x = 50;
+				character.y = ground;
+				
+			}
+			
+			
+			
+			
 			
 		}
 		
@@ -84,6 +155,8 @@ package actors
 					ParticleArray.splice(i, 1);
 				}
 			}
+			
+
 				
 			var oldPosY:int = character.y;
 			

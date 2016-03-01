@@ -114,7 +114,7 @@ package
 				sharedData.data.highScore = puntens;
 				
 				sharedData.flush();
-	 			
+	 			puntenScreen = sharedData.data.highScore;
 			}
 			
 		}
