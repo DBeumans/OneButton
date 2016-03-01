@@ -12,6 +12,7 @@ package actors
 		public var ySpeed:int = 0;
 		public var rSpeed:int = 0;
 		public var timer:int = 0;
+		public var defaultParticle:Array = [ "0x808080"];
 		public var particleColorArray:Array = ["0x808080", "0x00ffff", "0xff00ff", "0xD000000"];
 		public var rainbow:Array = ["0xFF0000", "0xEAFF00", "0x09FF00"];
 		public var blackAndWhite:Array = ["0xD000000", "0xFFFFFF"];
@@ -48,7 +49,7 @@ package actors
 		
 		private function randomColor():uint
 		{
-			var returnValue;
+			var returnValue = defaultParticle;
 			
 			
 			if (Main.puntenScreen >= 1000)

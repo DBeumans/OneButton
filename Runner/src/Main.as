@@ -28,6 +28,8 @@ package
 				
 		public static var puntens:int = 0;
 		public static var puntenScreen:int = 0;
+		public static var newscore:int = 0;
+		public static var oldscore:int = 0;
 
 		
 		public static var puntensScoreArray:Array = [];
@@ -55,15 +57,24 @@ package
 				sharedData.data.highScore = 0;
 			}
 			
+			if (sharedData.data.totalScore == null)
+			{
+				sharedData.data.totalScore = 0;
+			}
 			
 			
-			 if (puntens > sharedData.data.highScore)
+			
+			if (puntens > sharedData.data.highScore)
 			{
 				sharedData.data.highScore = puntens;
 			}
+			
+
+			
 			else
 			{
 				puntenScreen = sharedData.data.highScore;
+				oldscore = sharedData.data.totalScore;
 				
 			}
 			
@@ -94,14 +105,16 @@ package
 						
 			addChild(mainmenu);
 			
+			oldscore += newscore;
+			sharedData.data.totalScore = oldscore;
+			sharedData.flush();
 			
 			if (puntens > sharedData.data.highScore)
 			{
 				sharedData.data.highScore = puntens;
 				
 				sharedData.flush();
-				puntenScreen = sharedData.data.highScore;
-				
+	 			
 			}
 			
 		}
@@ -139,8 +152,9 @@ package
 			var punten:int = gamescreens.afstand;
 			
 			puntens = punten;
-			
+			newscore = punten;
 		
+			trace(sharedData.data.totalScore);
 
 		}
 		

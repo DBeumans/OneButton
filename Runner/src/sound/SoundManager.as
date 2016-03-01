@@ -1,6 +1,7 @@
 package sound 
 {
 	
+	import actors.Player;
 	import flash.media.Sound;
 	import flash.events.Event;
 	import flash.media.SoundChannel;
@@ -27,11 +28,13 @@ package sound
 		
 		
 		
+		private var player:Player;
+		
 		public function SoundManager(main:Main):void
 		{
 			sounds.load(new URLRequest("http://13103.hosts.ma-cloud.nl/bewijzenmap/periode3/oneButtonGameMusic/3.mp3"));			
 
-			
+			//jump.load(new URLRequest("../lib/assets/Sounds/jump.wav"));
 			
 			_channel = sounds.play(0,1,trans);
 			

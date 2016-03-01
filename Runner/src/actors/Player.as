@@ -6,6 +6,13 @@ package actors
 	import flash.ui.Keyboard;
 	import flash.utils.setInterval;
 	
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
+	
 	import screens.GameScreen;
 
 	/**
@@ -15,6 +22,11 @@ package actors
 	public class Player extends MovieClip
 	{
 
+		private var jump:Sound = new Sound();
+		private var trans:SoundTransform = new SoundTransform(0.2,0); 
+		private var _channel:SoundChannel;
+		
+		public var godmode:Boolean = false;
 		
 		private var gravity:Number = 10;
 		private var jumpPower:Number = 0;
@@ -22,7 +34,7 @@ package actors
 		private var jumpKracht:Number = 0;
 		private var jumpCounter:int = 0;
 		
-		private var jumpAble:Boolean = true;
+		public var jumpAble:Boolean = true;
 		
 		private var ParticleArray:Array = [];
 		
@@ -40,6 +52,8 @@ package actors
 		
 		private function init(e:Event):void
 		{
+			jump.load(new URLRequest("../lib/assests/Sounds/jump.mp3"));
+			
 			
 			
 			addChild(character);
@@ -58,6 +72,7 @@ package actors
 			makeParticle(7, character.x +14, character.y + 100, 10, 10);
 		}
 	
+		
 		private function update(e:Event):void
 		{
 			for ( var i:int = 0; i < ParticleArray.length; i++)
@@ -69,8 +84,7 @@ package actors
 					ParticleArray.splice(i, 1);
 				}
 			}
-			
-			
+				
 			var oldPosY:int = character.y;
 			
 			if(isJumping)
@@ -98,8 +112,6 @@ package actors
 				character.y += gravity;
 				
 			}
-			
-			
 
 			else
 			{
@@ -115,6 +127,10 @@ package actors
 		
 		private function Jump(e:KeyboardEvent):void
 		{
+			if (e.keyCode == Keyboard.F)
+			{
+				godmode = true;
+			}
 			if (jumpAble)
 			{
 				if (e.keyCode == Keyboard.SPACE)
@@ -123,6 +139,8 @@ package actors
 					jumpKracht = 0;
 					jumpKracht ++;
 					jumpPower = jumpKracht + 35;
+					_channel = jump.play(0, 1, trans);
+					
 		
 				}
 			}
@@ -142,9 +160,9 @@ package actors
 						}
 						else
 						{
-						jumpCounter ++;
-						trace(jumpKracht);
-						isJumping = true;	
+							jumpCounter ++;
+							trace(jumpKracht);
+							isJumping = true;	
 						
 						}
 					

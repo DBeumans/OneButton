@@ -1,6 +1,7 @@
 package screens 
 {
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.net.URLLoader;
@@ -25,7 +26,7 @@ package screens
 		
 		private var _main:Main;
 		
-		private var background:MovieClip = new Background_01();
+		private var background:Sprite = new Background_01();
 		
 		private var distanceText:TextField;
 		private var distanceText2:TextField;
@@ -46,8 +47,16 @@ package screens
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			text();
+			
+			
+			
 
 			addChild(background);
+			
+			this.graphics.beginFill(0x81A8B5, 1);
+			this.graphics.drawRect(0,0, 1000, 600);
+			this.graphics.endFill();
+			
 			addChild(distanceText);
 			addChild(distanceText2);
 			addChild(InstructionText);
@@ -103,8 +112,8 @@ package screens
 		private function Update(e:Event):void
 		{
 			distanceText.text = "Highscore: " +Main.puntenScreen + "M";
-			
-			
+			distanceText2.text = "TotalScore: " +Main.oldscore + "M";
+
 
 		}
 	

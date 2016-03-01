@@ -205,13 +205,16 @@ package screens
 				object4.x = Math.random() * 3400 + 3400;
 			}
 			
-			
-			
-			if (object1.hitTestObject(_player.character) || object2.hitTestObject(_player.character) || object3.hitTestObject(_player.character) || object4.hitTestObject(_player.character))
+			if (!_player.godmode)
 			{
-				dispatchEvent( new Event(GAME_OVER_SCREEN));
+				if (object1.hitTestObject(_player.character) || object2.hitTestObject(_player.character) || object3.hitTestObject(_player.character) || object4.hitTestObject(_player.character))
+				{
+					dispatchEvent( new Event(GAME_OVER_SCREEN));
 				
+				}
 			}
+			
+			
 			
 			
 			
@@ -220,7 +223,7 @@ package screens
 		private function scoreHandler():void
 		{
 			
-			afstand++;
+			afstand += 1;
 			
 			
 			
