@@ -23,7 +23,7 @@ package sound
 	{
 		
 		private var sounds:Sound = new Sound();
-		private var trans:SoundTransform = new SoundTransform(1,0); 
+		private var trans:SoundTransform = new SoundTransform(0.5,0); 
 		private var _channel:SoundChannel;
 		
 		
