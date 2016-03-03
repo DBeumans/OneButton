@@ -30,6 +30,8 @@ package screens
 		private var ScrollSpeed:Number = 8;
 		private var objSpeed:int = 15;
 		
+		public var plays:int = 0;
+		
 		private var background:Sprite = new Background_01();
 		private var background2:Sprite = new Background_02();
 		
@@ -38,10 +40,7 @@ package screens
 		private var object2:Sprite = new Obstalce2();
 		private var object3:Sprite = new Obstalce3();
 		private var object4:Sprite = new Obstalce4();
-		
-		
-		
-		
+
 		public var afstand:int = 0;
 		
 		private var distanceText:TextField;
@@ -50,6 +49,7 @@ package screens
 		public function GameScreen() 
 		{
 			
+			plays++;
 			_player = new Player();
 			addChild(background);
 			addChild(background2);
@@ -71,22 +71,15 @@ package screens
 			distanceText.defaultTextFormat = ShablagooFormat;
 			distanceText.x = 500;
 			distanceText.y = 100;
-			
-			
+				
 			addChild(distanceText);
-			
-			
+		
 			background.x = 0;
 			background2.x = background.width;
 			
-			
 			addEventListener(Event.ENTER_FRAME, update); 
-			
-			
 			     
 		}	
-		
-		
 		
 		private function SpawningObjects():void
 		{
@@ -98,7 +91,6 @@ package screens
 				addChild(obj);
 				trace(obj.x);
 			}
-			
 			
 			objecten[0].x = 1100;
 			objecten[0].y = 550;
@@ -128,25 +120,18 @@ package screens
 		private function update(e:Event):void
 		{
 			
-			
-			
-			
 			scoreHandler();
-			
-			
-			
+		
 			object1.x -= objSpeed;
 			object2.x -= objSpeed;
 			object3.x -= objSpeed;
 			object4.x -= objSpeed;
-			
-			
+						
 			background.x -= ScrollSpeed;
 			background2.x -= ScrollSpeed;
 			
 			checkObj();
 
-			
 			if (background.x < -background.width )
 			{
 				background.x = background.width- 10;
@@ -167,9 +152,7 @@ package screens
                 startTime = getTimer();
                 framesNumber = 0;
             }   
-			
-			
-			
+						
 		}
 		
 		public var startTime:Number;
@@ -209,14 +192,11 @@ package screens
 			{
 				if (object1.hitTestObject(_player.character) || object2.hitTestObject(_player.character) || object3.hitTestObject(_player.character) || object4.hitTestObject(_player.character))
 				{
+					removeEventListener(Event.ENTER_FRAME, update);
 					dispatchEvent( new Event(GAME_OVER_SCREEN));
 				
 				}
 			}
-			
-			
-			
-			
 			
 		}
 		
@@ -225,14 +205,9 @@ package screens
 			
 			afstand += 1;
 			
-			
-			
 			distanceText.text = "Distance: " + afstand + "M";
-			
-			
+				
 		}	
-		
-		
 		
 	}
 }

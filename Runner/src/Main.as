@@ -12,6 +12,8 @@ package
 	import screens.GameOverScreen;
 	import sound.SoundManager;
 	
+	import actors.Player;
+	
 	/**
 	 * ...
 	 * @author Danilo
@@ -23,6 +25,7 @@ package
 		private var gamescreens:GameScreen;
 		private var gameOverScreen:GameOverScreen;
 		private var soundManager:SoundManager;	
+		private var _player:Player;
 		
 		private var gsCall:Boolean = false;
 				
@@ -30,7 +33,8 @@ package
 		public static var puntenScreen:int = 0;
 		public static var newscore:int = 0;
 		public static var oldscore:int = 0;
-
+		public static var newPlay:int = 0;
+		public static var oldPlay:int = 0;
 		
 		public static var puntensScoreArray:Array = [];
 		
@@ -57,6 +61,11 @@ package
 				sharedData.data.highScore = 0;
 			}
 			
+			if (sharedData.data.totalPlays == null)
+			{
+				sharedData.data.totalPlays = 0;
+			}
+			
 			if (sharedData.data.totalScore == null)
 			{
 				sharedData.data.totalScore = 0;
@@ -75,6 +84,7 @@ package
 			{
 				puntenScreen = sharedData.data.highScore;
 				oldscore = sharedData.data.totalScore;
+				oldPlay = sharedData.data.totalPlays;
 				
 			}
 			
@@ -106,6 +116,8 @@ package
 			addChild(mainmenu);
 			
 			oldscore += newscore;
+			oldPlay += newPlay;
+			sharedData.data.totalPlays = oldPlay;
 			sharedData.data.totalScore = oldscore;
 			sharedData.flush();
 			
@@ -150,10 +162,12 @@ package
 		private function Update(e:Event):void
 		{
 			var punten:int = gamescreens.afstand;
+			var Plays:int = gamescreens.plays;
 			
 			puntens = punten;
 			newscore = punten;
-		
+			newPlay = Plays;
+
 			trace(sharedData.data.totalScore);
 
 		}

@@ -121,8 +121,7 @@ package screens
 				trace("ADDED");
 				//removeChild(background);
 				dispatchEvent( new Event(GAME_START));
-				
-				
+							
 			}
 			
 		}
@@ -130,7 +129,7 @@ package screens
 		private function Update(e:Event):void
 		{
 			distanceText.text = "Highscore: " +Main.puntenScreen + "M";
-			distanceText2.text = "TotalScore: " +Main.oldscore + "M";
+			distanceText2.text = "TotalScore: " +Main.oldscore + "M" + "Total Plays: " + Main.oldPlay;
 
 			//start fade in fade out
 			if (color)

@@ -54,15 +54,13 @@ package actors
 		// Cosmetics
 		
 		// Hats
-		
 		public var hat_default:MovieClip = new Hat_Default();
 		
 		public var character:MovieClip = character_default;
+		public var costmetic:MovieClip;
 		
 		private var ground:int = 480;
-		
-		
-		
+				
 		public function Player() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
@@ -74,9 +72,7 @@ package actors
 			//character = character_default;
 			
 			jump.load(new URLRequest("../lib/assests/Sounds/jump.mp3"));
-			
-			
-			
+
 			//addChild(character);
 			//character.y = ground;
 			//character.x = 50;
@@ -97,6 +93,7 @@ package actors
 			for (var i :int = 0; i < cosmeticArray.length; i++)
 			{
 				var Costmetic:MovieClip = cosmeticArray[i];
+				costmetic = Costmetic;
 				Costmetic.x = character.x - 20;
 				Costmetic.y = character.y - 52;
 				addChild(Costmetic);
@@ -153,11 +150,7 @@ package actors
 				character.y = ground;
 				
 			}
-			
-			
-			
-			
-			
+					
 		}
 		
 		private function MakeParticalFunction():void
@@ -165,7 +158,6 @@ package actors
 			makeParticle(7, character.x +14, character.y + 100, 10, 10);
 		}
 	
-		
 		private function update(e:Event):void
 		{
 			for ( var i:int = 0; i < ParticleArray.length; i++)
@@ -177,18 +169,15 @@ package actors
 					ParticleArray.splice(i, 1);
 				}
 			}
-			
-
-				
-			var oldPosY:int = character.y;
+	
+			//var oldPosY:int = character.y;
 			
 			if(isJumping)
 			{
 				
 				character.y -= jumpPower;
+				costmetic.y -= jumpPower;
 				jumpPower -= 2.5;
-					
-			
 				
 			}
 			
@@ -197,28 +186,28 @@ package actors
 				
 				jumpAble = false;
 				character.y += gravity;
+				costmetic.y += gravity;
 			
 			}
-			
-					
+						
 			if (character.y + gravity < ground)
 			{
 							
 				character.y += gravity;
+				costmetic.y += gravity;
 				
 			}
 
 			else
 			{
 				character.y = ground;
+				costmetic.y = character.y - 45;
 				isJumping = false;
 				jumpAble = true;
 				jumpCounter = 0;
 			}
-			
-			
+					
 		}
-	
 		
 		private function Jump(e:KeyboardEvent):void
 		{
@@ -236,7 +225,6 @@ package actors
 					jumpPower = jumpKracht + 35;
 					_channel = jump.play(0, 1, trans);
 					
-		
 				}
 			}
 		}
@@ -267,17 +255,16 @@ package actors
 			}
 			
 		}
-		
-		
+			
 		public function makeParticle(num:int, xPos:int, yPos:int, xSpeed:int, ySpeed:int):void
 		{
 			for (var i:int = 0; i < num;i++ )
 			{
-				var part:Particle = new Particle(Math.round(Math.random()) * 10 + 5);
+				var part:Particle = new Particle(Math.round(Math.random()) * 5 + 5);
 				part.x = xPos;
 				part.y = yPos;
 				part.xSpeed = xSpeed + Math.random() * 10 - 5;
-				part.ySpeed = ySpeed + Math.random() * 10 - 5;
+				part.ySpeed = ySpeed + Math.random() * 5- 5;
 				part.rSpeed = Math.random() * 10 + 20;
 				addChild(part);
 				ParticleArray.push(part);
@@ -285,8 +272,7 @@ package actors
 			}
 			
 		}
-
-		
+	
 	}
 
 }
