@@ -37,16 +37,25 @@ package actors
 		
 		public var jumpAble:Boolean = true;
 		
+		// Array
+		private var cosmeticArray:Array = [];
 		private var ParticleArray:Array = [];
 		
 		private var particles:Particle;
 		
+		// Characters
 		public var character_default:MovieClip = new Character();
 		public var character_blue:MovieClip = new Character_blue();
 		public var character_green:MovieClip = new Character_green();
 		public var character_purple:MovieClip = new Character_purple();
 		public var character_white:MovieClip = new Character_white();
 		public var character_yellow:MovieClip = new Character_yellow();
+		
+		// Cosmetics
+		
+		// Hats
+		
+		public var hat_default:MovieClip = new Hat_Default();
 		
 		public var character:MovieClip = character_default;
 		
@@ -75,10 +84,23 @@ package actors
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, JumpReleased);
 			
 			checkSkin();
+			checkCosmetics();
 			
 			addEventListener(Event.ENTER_FRAME, update);
 			setInterval(MakeParticalFunction, 10);
 			
+		}
+		
+		private function checkCosmetics():void
+		{
+			cosmeticArray.push(hat_default);
+			for (var i :int = 0; i < cosmeticArray.length; i++)
+			{
+				var Costmetic:MovieClip = cosmeticArray[i];
+				Costmetic.x = character.x - 20;
+				Costmetic.y = character.y - 52;
+				addChild(Costmetic);
+			}
 		}
 		
 		private function checkSkin():void
