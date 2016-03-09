@@ -1,6 +1,7 @@
 package actors 
 {
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.net.drm.DRMRemoveFromDeviceGroupContext;
@@ -39,6 +40,7 @@ package actors
 		
 		// Array
 		private var cosmeticArray:Array = [];
+		private var WingsArray:Array = [];
 		private var ParticleArray:Array = [];
 		
 		private var particles:Particle;
@@ -55,9 +57,13 @@ package actors
 		
 		// Hats
 		public var hat_default:MovieClip = new Hat_Default();
+		public var hat_blue:MovieClip = new Hat_Blue();
+		public var hat_green:MovieClip = new Hat_Green();
+		public var wings:MovieClip = new Wings();
 		
 		public var character:MovieClip = character_default;
-		public var costmetic:MovieClip;
+		public var costmetic:MovieClip = hat_default;
+		public var cosmeticWings:Sprite;
 		
 		private var ground:int = 480;
 				
@@ -89,7 +95,11 @@ package actors
 		
 		private function checkCosmetics():void
 		{
+			
 			cosmeticArray.push(hat_default);
+			cosmeticArray.push(hat_blue);
+			cosmeticArray.push(hat_green);
+			WingsArray.push(wings);
 			for (var i :int = 0; i < cosmeticArray.length; i++)
 			{
 				var Costmetic:MovieClip = cosmeticArray[i];
@@ -97,7 +107,39 @@ package actors
 				Costmetic.x = character.x - 20;
 				Costmetic.y = character.y - 52;
 				addChild(Costmetic);
+				if (Main.puntenScreen >= 1000)
+				{
+					addChild(Costmetic);
+				}
+				if (Main.puntenScreen >= 2000)
+				{
+					removeChild(costmetic);
+					costmetic = hat_blue;
+					addChild(costmetic);
+				}
 			}
+			
+			for (var j:int = 0; j < WingsArray.length; j++)
+			{
+				var Costmetic:MovieClip = WingsArray[j];
+				cosmeticWings = Costmetic;
+				Costmetic.x = character.x -35;
+				Costmetic.y = character.y - 10;
+				if (Main.puntenScreen >= 1000)
+				{
+					addChildAt(Costmetic, 0);
+				}
+				//
+				
+				else 
+				{
+					addChildAt(Costmetic, 0);
+					Costmetic.alpha = 0;
+				}
+				
+			}
+			
+
 		}
 		
 		private function checkSkin():void
@@ -110,6 +152,10 @@ package actors
 				addChild(character);
 				character.x = 50;
 				character.y = ground;
+				
+				addChild(costmetic);
+
+				
 			}
 			if (Main.puntenScreen >= 1000)
 			{
@@ -118,6 +164,8 @@ package actors
 				addChild(character);
 				character.x = 50;
 				character.y = ground;
+				
+				
 				
 			}
 			
@@ -150,6 +198,7 @@ package actors
 				character.y = ground;
 				
 			}
+
 					
 		}
 		
@@ -177,6 +226,7 @@ package actors
 				
 				character.y -= jumpPower;
 				costmetic.y -= jumpPower;
+				cosmeticWings.y -= jumpPower;
 				jumpPower -= 2.5;
 				
 			}
@@ -187,6 +237,7 @@ package actors
 				jumpAble = false;
 				character.y += gravity;
 				costmetic.y += gravity;
+				cosmeticWings.y += gravity;
 			
 			}
 						
@@ -195,6 +246,7 @@ package actors
 							
 				character.y += gravity;
 				costmetic.y += gravity;
+				cosmeticWings.y += gravity;
 				
 			}
 
@@ -202,6 +254,7 @@ package actors
 			{
 				character.y = ground;
 				costmetic.y = character.y - 45;
+				cosmeticWings.y = character.y - 30;
 				isJumping = false;
 				jumpAble = true;
 				jumpCounter = 0;
@@ -223,6 +276,7 @@ package actors
 					jumpKracht = 0;
 					jumpKracht ++;
 					jumpPower = jumpKracht + 35;
+
 					_channel = jump.play(0, 1, trans);
 					
 				}
@@ -244,7 +298,7 @@ package actors
 						else
 						{
 							jumpCounter ++;
-							trace(jumpKracht);
+							
 							isJumping = true;	
 						
 						}

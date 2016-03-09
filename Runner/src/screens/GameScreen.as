@@ -89,7 +89,7 @@ package screens
 				var obj:Sprite = objecten[i];
 				obj.y = 550;
 				addChild(obj);
-				trace(obj.x);
+				
 			}
 			
 			objecten[0].x = 1100;
@@ -103,17 +103,6 @@ package screens
 				
 			objecten[3].x = 3100;
 			objecten[3].y = 550;
-			
-			//addChild(objecten[0]);
-			trace(objecten[0].x);
-			//addChild(objecten[1]);
-			trace(objecten[1].x);
-			//addChild(objecten[2]);
-			trace(objecten[2].x);
-			//addChild(objecten[3]);
-			trace(objecten[3].x);
-			
-			trace(objecten);
 			
 		}
 		
