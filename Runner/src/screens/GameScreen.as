@@ -23,9 +23,12 @@ package screens
 		
 		public static const GAME_OVER_SCREEN:String = "Game Over Screen";
 		
-		private var _player:Player;
 		
+		private var _player:Player;
+		private var _particle:Particle;
 		private var _main:Main;
+		
+		private var death:Boolean = false;
 		
 		private var ScrollSpeed:Number = 8;
 		private var objSpeed:int = 15;
@@ -34,6 +37,9 @@ package screens
 		
 		private var background:Sprite = new Background_01();
 		private var background2:Sprite = new Background_02();
+		
+		private var level2:Sprite = new Level2();
+		private var level02:Sprite = new Level02();
 		
 		private var objecten:Array = [];
 		private var object1:Sprite = new Obstalce();
@@ -51,6 +57,14 @@ package screens
 			
 			plays++;
 			_player = new Player();
+			
+			if (Main.puntenScreen >= 1000)
+			{
+				background = level2;
+				background2 = level02;
+				
+			}
+			
 			addChild(background);
 			addChild(background2);
 			addChild(_player);
@@ -106,15 +120,36 @@ package screens
 			
 		}
 		
-		private function update(e:Event):void
+		private function stopObj():void
 		{
-			
-			scoreHandler();
-		
+			objSpeed = 0;
 			object1.x -= objSpeed;
 			object2.x -= objSpeed;
 			object3.x -= objSpeed;
 			object4.x -= objSpeed;
+			
+			
+			
+		}
+		
+		private function moveObj():void
+		{
+			object1.x -= objSpeed;
+			object2.x -= objSpeed;
+			object3.x -= objSpeed;
+			object4.x -= objSpeed;
+		
+		}
+
+		
+
+		
+		private function update(e:Event):void
+		{
+			
+			scoreHandler();
+			
+			moveObj();
 						
 			background.x -= ScrollSpeed;
 			background2.x -= ScrollSpeed;
@@ -160,6 +195,7 @@ package screens
 		private function checkObj():void
 		{
 			
+			
 			if (object1.x <= -100)
 			{
 				object1.x = Math.random() * 1100 + 1100;
@@ -181,8 +217,11 @@ package screens
 			{
 				if (object1.hitTestObject(_player.character) || object2.hitTestObject(_player.character) || object3.hitTestObject(_player.character) || object4.hitTestObject(_player.character))
 				{
+					//stopObj();
+
 					removeEventListener(Event.ENTER_FRAME, update);
 					dispatchEvent( new Event(GAME_OVER_SCREEN));
+	
 				
 				}
 			}

@@ -25,10 +25,12 @@ package actors
 	{
 
 		private var jump:Sound = new Sound();
-		private var trans:SoundTransform = new SoundTransform(0.2,0); 
+		private var trans:SoundTransform = new SoundTransform(0.,0); 
 		private var _channel:SoundChannel;
 		
 		public var godmode:Boolean = false;
+		
+		private var voetSpeed:int = 10;
 		
 		private var gravity:Number = 10;
 		private var jumpPower:Number = 0;
@@ -37,6 +39,7 @@ package actors
 		private var jumpCounter:int = 0;
 		
 		public var jumpAble:Boolean = true;
+		public var playerDeath:Boolean = false;
 		
 		// Array
 		private var cosmeticArray:Array = [];
@@ -53,6 +56,8 @@ package actors
 		public var character_white:MovieClip = new Character_white();
 		public var character_yellow:MovieClip = new Character_yellow();
 		
+		public var character_voet:MovieClip = new Voet();
+		public var character_voet2:MovieClip = new Voet();
 		// Cosmetics
 		
 		// Hats
@@ -65,7 +70,7 @@ package actors
 		public var costmetic:MovieClip = hat_default;
 		public var cosmeticWings:Sprite;
 		
-		private var ground:int = 480;
+		public var ground:int = 480;
 				
 		public function Player() 
 		{
@@ -91,7 +96,16 @@ package actors
 			addEventListener(Event.ENTER_FRAME, update);
 			setInterval(MakeParticalFunction, 10);
 			
+			character_voet.x = character.x+20;
+			character_voet.y = character.y +90;
+			addChildAt(character_voet, 1);
+			
+			character_voet2.x = character_voet.x + 60;
+			character_voet2.y = character_voet.y - 10;
+			addChildAt(character_voet2, 1);
+			
 		}
+		
 		
 		private function checkCosmetics():void
 		{
@@ -104,12 +118,12 @@ package actors
 			{
 				var Costmetic:MovieClip = cosmeticArray[i];
 				costmetic = Costmetic;
-				Costmetic.x = character.x - 20;
-				Costmetic.y = character.y - 52;
-				addChild(Costmetic);
+				costmetic.x = character.x - 20;
+				costmetic.y = character.y - 52;
+				addChild(costmetic);
 				if (Main.puntenScreen >= 1000)
 				{
-					addChild(Costmetic);
+					addChild(costmetic);
 				}
 				if (Main.puntenScreen >= 2000)
 				{
@@ -121,20 +135,20 @@ package actors
 			
 			for (var j:int = 0; j < WingsArray.length; j++)
 			{
-				var Costmetic:MovieClip = WingsArray[j];
-				cosmeticWings = Costmetic;
-				Costmetic.x = character.x -35;
-				Costmetic.y = character.y - 10;
+				var Costmetic2:MovieClip = WingsArray[j];
+				cosmeticWings = Costmetic2;
+				cosmeticWings.x = character.x -35;
+				cosmeticWings.y = character.y - 10;
 				if (Main.puntenScreen >= 1000)
 				{
-					addChildAt(Costmetic, 0);
+					addChildAt(cosmeticWings, 0);
 				}
 				//
 				
 				else 
 				{
-					addChildAt(Costmetic, 0);
-					Costmetic.alpha = 0;
+					addChildAt(cosmeticWings, 0);
+					cosmeticWings.alpha = 0;
 				}
 				
 			}
@@ -204,11 +218,15 @@ package actors
 		
 		private function MakeParticalFunction():void
 		{
-			makeParticle(7, character.x +14, character.y + 100, 10, 10);
+			makeParticle(5, character.x +14, character.y + 100, 10, 10);
 		}
-	
+		
 		private function update(e:Event):void
 		{
+			
+			character_voet.rotationZ += voetSpeed;
+			character_voet2.rotationZ += voetSpeed;
+
 			for ( var i:int = 0; i < ParticleArray.length; i++)
 			{
 				ParticleArray[i].update();
@@ -227,6 +245,8 @@ package actors
 				character.y -= jumpPower;
 				costmetic.y -= jumpPower;
 				cosmeticWings.y -= jumpPower;
+				character_voet.y -= jumpPower;
+				character_voet2.y -= jumpPower;
 				jumpPower -= 2.5;
 				
 			}
@@ -238,6 +258,8 @@ package actors
 				character.y += gravity;
 				costmetic.y += gravity;
 				cosmeticWings.y += gravity;
+				character_voet.y += gravity;
+				character_voet2.y += gravity;
 			
 			}
 						
@@ -247,6 +269,8 @@ package actors
 				character.y += gravity;
 				costmetic.y += gravity;
 				cosmeticWings.y += gravity;
+				character_voet.y += gravity;
+				character_voet2.y += gravity;
 				
 			}
 
@@ -255,6 +279,8 @@ package actors
 				character.y = ground;
 				costmetic.y = character.y - 45;
 				cosmeticWings.y = character.y - 30;
+				character_voet.y = character.y + 90;
+				character_voet2.y = character_voet.y - 10;
 				isJumping = false;
 				jumpAble = true;
 				jumpCounter = 0;
@@ -320,7 +346,7 @@ package actors
 				part.xSpeed = xSpeed + Math.random() * 10 - 5;
 				part.ySpeed = ySpeed + Math.random() * 5- 5;
 				part.rSpeed = Math.random() * 10 + 20;
-				addChild(part);
+				addChildAt(part,0);
 				ParticleArray.push(part);
 				
 			}
