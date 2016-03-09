@@ -5,7 +5,6 @@ package
 	import flash.events.Event;
 	import flash.net.SharedObject;
 
-	
 	import screens.IntroScreen;
 	import screens.MainMenu;
 	import screens.GameScreen;
@@ -29,6 +28,8 @@ package
 		
 		private var gsCall:Boolean = false;
 				
+		public static var deadscore:int = 0;
+			
 		public static var puntens:int = 0;
 		public static var puntenScreen:int = 0;
 		public static var newscore:int = 0;
@@ -115,6 +116,7 @@ package
 						
 			addChild(mainmenu);
 			
+			
 			oldscore += newscore;
 			oldPlay += newPlay;
 			sharedData.data.totalPlays = oldPlay;
@@ -163,12 +165,14 @@ package
 		{
 			var punten:int = gamescreens.afstand;
 			var Plays:int = gamescreens.plays;
+			var deadScore:int = gamescreens.afstand;
 			
+			deadscore = deadScore;
 			puntens = punten;
 			newscore = punten;
 			newPlay = Plays;
 
-			trace(sharedData.data.totalScore);
+
 
 		}
 		
