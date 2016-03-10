@@ -64,7 +64,11 @@ package actors
 		public var hat_default:MovieClip = new Hat_Default();
 		public var hat_blue:MovieClip = new Hat_Blue();
 		public var hat_green:MovieClip = new Hat_Green();
+		//Wings
 		public var wings:MovieClip = new Wings();
+		public var wings_2:MovieClip = new Wings_2();
+		public var wings_3:MovieClip = new Wings_3();
+		public var wings_4:MovieClip = new Wings_4();
 		
 		public var character:MovieClip = character_default;
 		public var costmetic:MovieClip = hat_default;
@@ -114,15 +118,19 @@ package actors
 			cosmeticArray.push(hat_blue);
 			cosmeticArray.push(hat_green);
 			WingsArray.push(wings);
+			WingsArray.push(wings_2);
+			WingsArray.push(wings_3);
+			WingsArray.push(wings_4);
 			for (var i :int = 0; i < cosmeticArray.length; i++)
 			{
 				var Costmetic:MovieClip = cosmeticArray[i];
 				costmetic = Costmetic;
 				costmetic.x = character.x - 20;
 				costmetic.y = character.y - 52;
-				addChild(costmetic);
+				//addChild(costmetic);
 				if (Main.puntenScreen >= 1000)
 				{
+					costmetic = hat_default;
 					addChild(costmetic);
 				}
 				if (Main.puntenScreen >= 2000)
@@ -131,24 +139,42 @@ package actors
 					costmetic = hat_blue;
 					addChild(costmetic);
 				}
+				if (Main.oldscore >= 30000)
+				{
+					removeChild(costmetic);
+					costmetic = hat_default;
+					addChild(costmetic);
+				}
 			}
 			
 			for (var j:int = 0; j < WingsArray.length; j++)
 			{
 				var Costmetic2:MovieClip = WingsArray[j];
 				cosmeticWings = Costmetic2;
-				cosmeticWings.x = character.x -35;
-				cosmeticWings.y = character.y - 10;
-				if (Main.puntenScreen >= 1000)
+				cosmeticWings.x = character.x + 40;
+				cosmeticWings.y = character.y;
+				if (Main.puntenScreen >= 0)
 				{
+					cosmeticWings = wings;
 					addChildAt(cosmeticWings, 0);
 				}
-				//
-				
-				else 
+				if (Main.puntenScreen >= 1200)
 				{
-					addChildAt(cosmeticWings, 0);
-					cosmeticWings.alpha = 0;
+					removeChild(cosmeticWings);
+					cosmeticWings = wings_2;
+					addChildAt(cosmeticWings, 0 );
+				}
+				if (Main.puntenScreen >= 2500)
+				{
+					removeChild(cosmeticWings);
+					cosmeticWings = wings_3;
+					addChildAt(cosmeticWings, 0 );
+				}
+				if (Main.puntenScreen >= 4000)
+				{
+					removeChild(cosmeticWings);
+					cosmeticWings = wings_4;
+					addChildAt(cosmeticWings, 0 );
 				}
 				
 			}
@@ -277,8 +303,8 @@ package actors
 			else
 			{
 				character.y = ground;
-				costmetic.y = character.y - 45;
-				cosmeticWings.y = character.y - 30;
+				costmetic.y = character.y - 35 ;
+				cosmeticWings.y = character.y + 30;
 				character_voet.y = character.y + 90;
 				character_voet2.y = character_voet.y - 10;
 				isJumping = false;

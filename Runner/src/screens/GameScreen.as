@@ -41,6 +41,9 @@ package screens
 		private var level2:Sprite = new Level2();
 		private var level02:Sprite = new Level02();
 		
+		private var level3:Sprite = new Level_3();
+		private var level03:Sprite = new Level_03();
+		
 		private var objecten:Array = [];
 		private var object1:Sprite = new Obstalce();
 		private var object2:Sprite = new Obstalce2();
@@ -50,7 +53,7 @@ package screens
 		public var afstand:int = 0;
 		
 		private var distanceText:TextField;
-		private var distanceTextFont:TextFormat = new TextFormat( "Shablagoo", 24, 0xFFFF00);
+		private var distanceTextFont:TextFormat = new TextFormat( "VinegarStroke", 24, 0xFFFF00);
 		
 		public function GameScreen() 
 		{
@@ -58,12 +61,19 @@ package screens
 			plays++;
 			_player = new Player();
 			
-			if (Main.puntenScreen >= 1000)
+			if (Main.puntenScreen >= 0)
 			{
 				background = level2;
 				background2 = level02;
 				
 			}
+			
+			if (Main.oldscore >= 30000)
+			{
+				background = level3;
+				background2 = level03;
+			}
+			
 			
 			addChild(background);
 			addChild(background2);
@@ -82,7 +92,7 @@ package screens
 			distanceText = new TextField();
 			distanceText.embedFonts = true;
 			distanceText.autoSize = TextFieldAutoSize.CENTER;
-			distanceText.defaultTextFormat = ShablagooFormat;
+			distanceText.defaultTextFormat = VinegarStrokeFormat;
 			distanceText.x = 500;
 			distanceText.y = 100;
 				
