@@ -118,6 +118,7 @@ package screens
 			if (k.keyCode == Keyboard.SPACE)
 			{
 				stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+				removeEventListener(Event.ENTER_FRAME, Update);
 				trace("ADDED");
 				//removeChild(background);
 				dispatchEvent( new Event(GAME_START));
