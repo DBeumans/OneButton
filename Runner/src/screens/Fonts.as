@@ -10,6 +10,15 @@ package screens
 	public class Fonts extends MovieClip
 	{
 
+		[Embed(source = "../../lib/font/VinegarStroke.ttf",
+			fontName = "VinegarStroke",
+			mimeType = "application/x-font", 
+			fontWeight="normal", 
+			fontStyle="normal", 		
+			advancedAntiAliasing="true", 
+			embedAsCFF = "false")]			
+			private var VinegarStrokeFont:Class;
+		
 			
 		[Embed(source = "../../lib/font/shablagoo.ttf",
 			fontName = "Shablagoo",
@@ -23,6 +32,7 @@ package screens
 			protected var textFormat:TextFormat;
 			protected var subFormat:TextFormat;
 			protected var ShablagooFormat:TextFormat;
+			protected var VinegarStrokeFormat:TextFormat;
 		
 		public function Fonts() 
 		{
@@ -39,9 +49,14 @@ package screens
 
 			
 			ShablagooFormat = new TextFormat();
-			ShablagooFormat.font = "Shablagoo";
+			ShablagooFormat.font = "VinegarStroke";
 			ShablagooFormat.size = 40;
 			ShablagooFormat.color = 0xFFFF00;
+			
+			VinegarStrokeFormat = new TextFormat();
+			VinegarStrokeFormat.font = "VinegarStroke";
+			VinegarStrokeFormat.size = 40;
+			VinegarStrokeFormat.color = 0xFFFF00;
 		
 		}
 		
